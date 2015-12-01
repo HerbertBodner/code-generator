@@ -9,7 +9,7 @@ namespace CodeGenerator.Core.Services
 {
     public class EntityReaderService
     {
-        public IEnumerable<Entity> GetAllClasses(string assemblyPath, string[] namespaceLst = null)
+        public IEnumerable<Type> GetAllTypes(string assemblyPath, string[] namespaceLst = null)
         {
             if (!File.Exists(assemblyPath))
             {
@@ -19,14 +19,16 @@ namespace CodeGenerator.Core.Services
             var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath);
 
             var types = assembly.GetTypes().Where(x => x.IsClass);
+            return types;
+        }
+
+
+        public IEnumerable<Entity> GetAllClasses(string assemblyPath, string[] namespaceLst = null)
+        {
+            var types = GetAllTypes(assemblyPath, namespaceLst);
 
             var entities = types
-                .Select(x => new Entity
-                    {
-                        ClassName = x.Name,
-                        ClrType = x
-                    }
-                );
+                .Select(x => new Entity(x));
 
             if (namespaceLst != null && namespaceLst.Any())
             {

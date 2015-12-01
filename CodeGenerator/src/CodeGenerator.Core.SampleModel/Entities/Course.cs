@@ -16,5 +16,7 @@ namespace CodeGenerator.Core.SampleModel.Entities
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public virtual Teacher Teacher { get; set; }
     }
 }

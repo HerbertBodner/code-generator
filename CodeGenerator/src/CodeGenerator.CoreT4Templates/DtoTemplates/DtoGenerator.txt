@@ -1,0 +1,11 @@
+﻿
+
+
+
+C:\WINDOWS\CodeGenerator.Core.SampleModel\bin\debug\CodeGenerator.Core.SampleModel.dll// Generated helper templates
+// CodeGenerator\src\CodeGenerator.CoreT4Templates\TestFolder\DtoGenerator.txt4
+// Generated items
+// CodeGenerator\src\CodeGenerator.CoreT4Templates\TestFolder\TeacherDtoBase.cs
+// CodeGenerator\src\CodeGenerator.CoreT4Templates\TestFolder\StudentDtoBase.cs
+// CodeGenerator\src\CodeGenerator.CoreT4Templates\TestFolder\PersonDtoBase.cs
+// CodeGenerator\src\CodeGenerator.CoreT4Templates\TestFolder\CourseDtoBase.cs

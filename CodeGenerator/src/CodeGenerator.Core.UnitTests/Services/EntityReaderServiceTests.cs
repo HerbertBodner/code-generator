@@ -1,4 +1,5 @@
 ﻿using CodeGenerator.Core.Services;
+using CodeGenerator.Core.UnitTests.Helper;
 using System.IO;
 using System.Linq;
 using Xunit;
@@ -7,8 +8,6 @@ namespace CodeGenerator.Core.UnitTests.Services
 {
     public class EntityReaderServiceTests
     {
-        const string AssemblyName = "CodeGenerator.Core.SampleModel";
-
         private EntityReaderService GetEntityReaderService()
         {
             return new EntityReaderService();
@@ -17,7 +16,7 @@ namespace CodeGenerator.Core.UnitTests.Services
         [Fact]
         public void GetAllClasses_AssemblyNotExists_ThrowsFileNotFoundException()
         {
-            var absPathDll = Path.GetFullPath(Path.Combine(@"..\..\", AssemblyName, @"bin\Debug", AssemblyName + ".dll"));
+            var absPathDll = Path.GetFullPath(Path.Combine(@"..\..\", "nonExistingDll", @"bin\Debug", "nonExistingDll.dll"));
 
             var entityReader = GetEntityReaderService();
 
@@ -26,14 +25,13 @@ namespace CodeGenerator.Core.UnitTests.Services
 
 
         [Fact]
-        public void GetAllClasses_OfSampleMovel_ReturnsClassesFromSampleModel()
+        public void GetAllClasses_OfSampleModel_ReturnsClassesFromSampleModel()
         {
-            var localPath = Path.GetFullPath("./" + AssemblyName + ".dll");
-            var absPathDll = Path.GetFullPath(Path.Combine("./", AssemblyName + ".dll"));
+            string absPathDll = TestHelper.GetTestAssemblyPath();
 
             var entityReader = GetEntityReaderService();
 
-            var classTypes = entityReader.GetAllClasses(absPathDll, new[] { AssemblyName + ".Entities" }).ToList();
+            var classTypes = entityReader.GetAllClasses(absPathDll, new[] { TestHelper.AssemblyName + ".Entities" }).ToList();
 
             Assert.Equal(4, classTypes.Count);
 
@@ -42,5 +40,7 @@ namespace CodeGenerator.Core.UnitTests.Services
             Assert.NotNull(classTypes.FirstOrDefault(x => x.ClassName == "Student"));
             Assert.NotNull(classTypes.FirstOrDefault(x => x.ClassName == "Teacher"));
         }
+
+        
     }
 }
